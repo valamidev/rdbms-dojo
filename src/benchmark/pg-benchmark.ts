@@ -25,7 +25,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 2: JOINED SELECT WITH GROUP BY ORDER BY BALANCE",
+    name: "Query 2: JOINED SELECT WITH GROUP BY 3 COLUMN ORDER BY NON-INDEXED COLUMN",
     text: `
       SELECT a.address, a.balance, COUNT(t.id) AS transaction_count
       FROM Accounts a
