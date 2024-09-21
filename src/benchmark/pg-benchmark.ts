@@ -12,7 +12,7 @@ const client = new Client({
 // Define the queries
 const queries = [
   {
-    name: "Query 1: Latest 10 transactions with account and block details",
+    name: "Query 1: JOINED SELECT WITH ORDER BY NON-INDEXED COLUMN",
     text: `
       SELECT t.tx_hash, a_from.address AS from_address, a_to.address AS to_address, 
              t.value, b.block_number, b.timestamp
@@ -25,7 +25,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 2: Top 5 accounts with the highest balance and their transaction count",
+    name: "Query 2: JOINED SELECT WITH GROUP BY ORDER BY BALANCE",
     text: `
       SELECT a.address, a.balance, COUNT(t.id) AS transaction_count
       FROM Accounts a
@@ -36,7 +36,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 3: Latest 10 created contracts with their creator's address and creation block number",
+    name: "Query 3: JOINED SELECT WITH ORDER BY NON-INDEXED COLUMN",
     text: `
       SELECT c.address AS contract_address, a.address AS creator_address, 
              b.block_number AS creation_block_number
@@ -48,7 +48,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 4: Total transaction value and gas used for each block in the last 100 blocks",
+    name: "Query 4: JOINED SELECT WITH GROUP BY AND SUM ORDER BY NON-INDEXED COLUMN",
     text: `
       SELECT b.block_number, b.timestamp, 
              SUM(t.value) AS total_value, SUM(t.gas_used) AS total_gas_used
@@ -60,7 +60,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 5: Top 10 contracts by transaction count",
+    name: "Query 5: JOINED SELECT WITH GROUP BY AND COUNT ORDER BY",
     text: `
       SELECT c.address AS contract_address, COUNT(t.id) AS transaction_count
       FROM Contracts c
@@ -71,7 +71,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 6: Average transaction value and gas used for each hour in the last 24 hours",
+    name: "Query 6: JOINED SELECT GROUP AVG AND ORDER BY",
     text: `
       SELECT DATE_TRUNC('hour', b.timestamp) AS hour,
              AVG(t.value) AS avg_value,
@@ -84,7 +84,7 @@ const queries = [
     `,
   },
   {
-    name: "Query 7: Accounts involved in the highest value transaction for each of the last 10 blocks",
+    name: "Query 7: WITH JOINED SELECT TO JOINED SELECT AND ORDER",
     text: `
       WITH RankedTransactions AS (
         SELECT t.*, b.block_number,

@@ -6,4 +6,6 @@ import { psqlBootstrap } from "./bootstrap/postgres-bootstrap";
 
 dotenv.config();
 
-Promise.all([mysqlBootstrap, psqlBootstrap]).catch((err) => console.error(err));
+psqlBootstrap();
+
+mysqlBootstrap();
