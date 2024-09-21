@@ -1,0 +1,27 @@
+{
+  "name": "benchmark-databases",
+  "version": "1.0.0",
+  "description": "A project for benchmarking PostgreSQL and MySQL databases.",
+  "main": "src/index.js",
+  "scripts": {
+    "bootstrap": "ts-node src/bootstrap.ts",
+    "mysql": "ts-node src/mysql.ts",
+    "psql": "ts-node src/psql.ts",
+    "benchmark:mysql": "node src/benchmarks/mysql-benchmark.js",
+    "benchmark:postgres": "node src/benchmarks/postgres-benchmark.js"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10",
+    "ts-node": "^10.0.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  },
+  "author": "",
+  "license": "ISC"
+}
