@@ -189,6 +189,19 @@ export async function psqlBootstrap() {
       );
     `);
 
+    // Indexes
+    await client.query(`
+      CREATE INDEX idx_transactions_from_account_id ON Transactions(from_account_id);
+      CREATE INDEX idx_transactions_to_account_id ON Transactions(to_account_id);
+      CREATE INDEX idx_transactions_block_id ON Transactions(block_id);
+      CREATE INDEX idx_transactions_contract_id ON Transactions(contract_id);
+      CREATE INDEX idx_transactions_block_id_value_desc ON Transactions(block_id, value DESC);
+       CREATE INDEX idx_accounts_balance_desc ON Accounts(balance DESC);
+       CREATE INDEX idx_contracts_creator_account_id ON Contracts(creator_account_id);
+       CREATE INDEX idx_contracts_creation_block_id ON Contracts(creation_block_id);
+       CREATE INDEX idx_blocks_timestamp ON Blocks(timestamp);
+    `);
+
     // Generate and insert data
 
     // Accounts
