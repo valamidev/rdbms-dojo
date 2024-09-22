@@ -2,6 +2,24 @@
 
 This project benchmarks MySQL and PostgreSQL databases using Node.js. It utilizes popular libraries for database connections and performs benchmark queries to evaluate performance.
 
+## Using the benchmark
+
+```bash
+
+Rename .env.example to .env
+
+docker compose up -d
+
+npm install
+
+npm run bootstrap
+
+npm run mysql
+npm run psql
+
+
+```
+
 ## Results With Indices Summary
 
 ```
