@@ -28,20 +28,20 @@ Query 7: WITH JOINED SELECT TO JOINED SELECT AND ORDER - Average Execution Time:
 
 ```
 Mysql Benchmark Results:
-Query 1: JOINED SELECT WITH ORDER BY NON-INDEXED COLUMN - Average Execution Time: 3.19 ms
-Query 2: JOINED SELECT WITH GROUP BY ORDER BY BALANCE - Average Execution Time: 15110.57 ms
-Query 3: JOINED SELECT WITH ORDER BY NON-INDEXED COLUMN - Average Execution Time: 1.99 ms
-Query 4: JOINED SELECT WITH GROUP BY AND SUM ORDER BY NON-INDEXED COLUMN - Average Execution Time: 145.61 ms
-Query 5: JOINED SELECT WITH GROUP BY AND COUNT ORDER BY - Average Execution Time: 39.70 ms
-Query 6: JOINED SELECT GROUP AVG AND ORDER BY - Average Execution Time: 137.77 ms
-Query 7: WITH JOINED SELECT TO JOINED SELECT AND ORDER - Average Execution Time: 8.76 ms
+Query 1: Average Execution Time: 3.19 ms
+Query 2: Average Execution Time: 15110.57 ms
+Query 3: Average Execution Time: 1.99 ms
+Query 4: Average Execution Time: 145.61 ms
+Query 5: Average Execution Time: 39.70 ms
+Query 6: Average Execution Time: 137.77 ms
+Query 7: Average Execution Time: 8.76 ms
 
 PostgreSQL Benchmark Results:
-Query 1: JOINED SELECT WITH ORDER BY NON-INDEXED COLUMN - Average Execution Time: 30.62 ms
-Query 2: JOINED SELECT WITH GROUP BY ORDER BY BALANCE - Average Execution Time: 3598.88 ms
-Query 3: JOINED SELECT WITH ORDER BY NON-INDEXED COLUMN - Average Execution Time: 1.56 ms
-Query 4: JOINED SELECT WITH GROUP BY AND SUM ORDER BY NON-INDEXED COLUMN - Average Execution Time: 26.36 ms
-Query 5: JOINED SELECT WITH GROUP BY AND COUNT ORDER BY - Average Execution Time: 20.78 ms
-Query 6: JOINED SELECT GROUP AVG AND ORDER BY - Average Execution Time: 27.67 ms
-Query 7: WITH JOINED SELECT TO JOINED SELECT AND ORDER - Average Execution Time: 81.08 ms
+Query 1: Average Execution Time: 30.62 ms
+Query 2: Average Execution Time: 3598.88 ms
+Query 3: Average Execution Time: 1.56 ms
+Query 4: Average Execution Time: 26.36 ms
+Query 5: Average Execution Time: 20.78 ms
+Query 6: Average Execution Time: 27.67 ms
+Query 7: Average Execution Time: 81.08 ms
 ```
