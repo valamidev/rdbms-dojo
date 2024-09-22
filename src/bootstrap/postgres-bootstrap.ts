@@ -1,6 +1,9 @@
 import { Client } from "pg";
 import crypto from "crypto";
 
+const ENTITY_COUNT = 10_000;
+const MASS_ENTITY_COUNT = 500_000;
+
 // PostgreSQL connection configuration
 const client = new Client({
   user: process.env.POSTGRES_USER || "postgres",
@@ -104,18 +107,18 @@ async function insertContracts(
 
 // Insert transactions into the database
 async function insertTransactions() {
-  const batchSize = 1000;
-  for (let i = 0; i < 100000; i += batchSize) {
-    const batchSizeAdjusted = Math.min(batchSize, 100000 - i);
+  const batchSize = MASS_ENTITY_COUNT / 5000;
+  for (let i = 0; i < MASS_ENTITY_COUNT; i += batchSize) {
+    const batchSizeAdjusted = Math.min(batchSize, MASS_ENTITY_COUNT - i);
     const txValues: string[] = [];
     const txParams: any[] = [];
 
     for (let j = 0; j < batchSizeAdjusted; j++) {
       const tx_hash = randomHash();
-      const block_id = Math.floor(Math.random() * 1000) + 1; // Block IDs from 1 to 1000
-      const from_account_id = Math.floor(Math.random() * 1000) + 1;
-      const to_account_id = Math.floor(Math.random() * 1000) + 1;
-      const contract_id = Math.floor(Math.random() * 1000) + 1;
+      const block_id = Math.floor(Math.random() * ENTITY_COUNT) + 1; // Block IDs from 1 to 1000
+      const from_account_id = Math.floor(Math.random() * ENTITY_COUNT) + 1;
+      const to_account_id = Math.floor(Math.random() * ENTITY_COUNT) + 1;
+      const contract_id = Math.floor(Math.random() * ENTITY_COUNT) + 1;
       const value = Math.floor(Math.random() * 100000).toString();
       const gas_used = Math.floor(Math.random() * 100000);
 
@@ -140,13 +143,21 @@ async function insertTransactions() {
       VALUES ${txValues.join(",")}
     `;
     await client.query(insertTxQuery, txParams);
-    console.log(`Inserted ${i + batchSizeAdjusted} / 100000 transactions`);
+    console.log(
+      `Inserted ${i + batchSizeAdjusted} / ${MASS_ENTITY_COUNT} transactions`
+    );
   }
 }
 
 export async function psqlBootstrap() {
   try {
     await client.connect();
+
+    // Drop tables if they exist
+    await client.query(`DROP TABLE IF EXISTS Transactions;`);
+    await client.query(`DROP TABLE IF EXISTS Contracts;`);
+    await client.query(`DROP TABLE IF EXISTS Blocks;`);
+    await client.query(`DROP TABLE IF EXISTS Accounts;`);
 
     // Create tables
     await client.query(`
@@ -207,7 +218,7 @@ export async function psqlBootstrap() {
     // Accounts
     const accounts: { address: string; balance: string; nonce: number }[] = [];
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < ENTITY_COUNT; i++) {
       accounts.push({
         address: randomAddress(),
         balance: Math.floor(Math.random() * 100000).toString(),
@@ -221,10 +232,10 @@ export async function psqlBootstrap() {
     // Blocks
     const blocks: { block_number: number; timestamp: Date }[] = [];
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < ENTITY_COUNT; i++) {
       blocks.push({
         block_number: i + 1,
-        timestamp: new Date(Date.now() - (1000 - i) * 60000),
+        timestamp: new Date(Date.now() - (ENTITY_COUNT - i) * 60000),
       });
     }
 
@@ -239,11 +250,11 @@ export async function psqlBootstrap() {
       code_hash: string;
     }[] = [];
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < ENTITY_COUNT; i++) {
       contracts.push({
         address: randomAddress(),
-        creator_account_id: Math.floor(Math.random() * 1000) + 1, // Account IDs from 1 to 1000
-        creation_block_id: Math.floor(Math.random() * 1000) + 1, // Block IDs from 1 to 1000
+        creator_account_id: Math.floor(Math.random() * ENTITY_COUNT) + 1, // Account IDs from 1 to 1000
+        creation_block_id: Math.floor(Math.random() * ENTITY_COUNT) + 1, // Block IDs from 1 to 1000
         code_hash: randomHash(),
       });
     }
